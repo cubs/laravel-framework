@@ -29,6 +29,7 @@ trait DetectsLostConnections
             'Error writing data to the connection',
             'Resource deadlock avoided',
             'Transaction() on null',
+            'Error while reading line from the server', // Predis
         ]);
     }
 }

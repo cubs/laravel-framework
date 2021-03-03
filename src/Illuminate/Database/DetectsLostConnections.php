@@ -36,6 +36,7 @@ trait DetectsLostConnections
             'TCP Provider: Error code 0x68',
             'Name or service not known',
             'Error while reading line from the server', // Predis
+            'went away', // PhpRedis
         ]);
     }
 }

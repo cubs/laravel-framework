@@ -17,7 +17,7 @@ trait DetectsLostConnections
     {
         $message = $e->getMessage();
 
-        return Str::contains($message, [
+        return Str::contains($message, array_merge([
             'server has gone away',
             'no connection to the server',
             'Lost connection',
@@ -38,6 +38,9 @@ trait DetectsLostConnections
             'Packets out of order. Expected',
             'Adaptive Server connection failed',
             'Communication link failure',
-        ]);
+        ], [
+            'Error while reading line from the server', // Predis
+            'went away', // PhpRedis
+        ]));
     }
 }

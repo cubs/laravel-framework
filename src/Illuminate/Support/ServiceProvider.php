@@ -54,9 +54,11 @@ abstract class ServiceProvider
      */
     protected function mergeConfigFrom($path, $key)
     {
+        if (! $this->app->configurationIsCached()) {
         $config = $this->app['config']->get($key, []);
 
         $this->app['config']->set($key, array_merge(require $path, $config));
+        }
     }
 
     /**

@@ -17,7 +17,7 @@ trait DetectsLostConnections
     {
         $message = $e->getMessage();
 
-        return Str::contains($message, [
+        return Str::contains($message, array_merge([
             'server has gone away',
             'no connection to the server',
             'Lost connection',
@@ -57,6 +57,9 @@ trait DetectsLostConnections
             'The client was disconnected by the server because of inactivity. See wait_timeout and interactive_timeout for configuring this behavior.',
             'SQLSTATE[08006] [7] could not translate host name',
             'TCP Provider: Error code 0x274C',
-        ]);
+        ], [
+            'Error while reading line from the server', // Predis
+            'went away', // PhpRedis
+        ]));
     }
 }

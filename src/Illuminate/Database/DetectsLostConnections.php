@@ -17,7 +17,7 @@ trait DetectsLostConnections
     {
         $message = $e->getMessage();
 
-        return Str::contains($message, [
+        return Str::contains($message, array_merge([
             'server has gone away',
             'no connection to the server',
             'Lost connection',
@@ -61,6 +61,9 @@ trait DetectsLostConnections
             'SQLSTATE[HY000] [2002] No such file or directory',
             'SSL: Operation timed out',
             'Reason: Server is in script upgrade mode. Only administrator can connect at this time.',
-        ]);
+        ], [
+            'Error while reading line from the server', // Predis
+            'went away', // PhpRedis
+        ]));
     }
 }
